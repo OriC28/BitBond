@@ -1,0 +1,5 @@
+RewriteEngine On
+# RewriteBase /BitBond/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php?code=$1 [L,QSA]

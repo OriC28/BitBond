@@ -1,0 +1,11 @@
+Options -MultiViews
+
+RewriteEngine On
+
+# Condición: si la petición NO es para un archivo existente
+RewriteCond %{REQUEST_FILENAME} !-f
+# Condición: y si la petición NO es para un directorio existente
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Regla: Redirige CUALQUIER OTRA COSA al index.php
+RewriteRule . index.php [L]

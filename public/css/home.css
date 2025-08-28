@@ -1,0 +1,48 @@
+#result-container {
+  text-align: center;
+  height: 50%;
+  padding: 10px;
+}
+
+#short-url-result {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.short-url-result{
+  width: 95%;
+}
+
+#result-content{
+  margin-top: 5px;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+#short-url-result input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.qr-preview {
+  align-self: center;
+  width: 70%;
+}
+
+
+.action-buttons {
+  margin-top: 10px;
+  width: 95%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.action-buttons .btn {
+  min-width: 100px;
+}
