@@ -12,14 +12,26 @@ class UrlController extends Controller
         return $this->view('links');
     }
 
-    public function store(string $url)
+    public function store()
     {
-        if (isset($url) && !empty($url)) {
+
+        if (isset($_POST['url']) && !empty($_POST['url'])) {
+            $url = $_POST['url'];
             $result = $this->urlModel->storeUrl($url);
-            if ($result) {
+            if ($result['success']) {
                 return json_encode($result);
             }
+            return json_encode($result);
         }
-        return json_encode(['error' => true]);
+        return json_encode(["success" => false, "error" => "La URL es requerida."]);
+    }
+
+    public function select()
+    {
+        $result = $this->urlModel->getUrls();
+        if (!$result['success']) {
+            return json_encode($result);
+        }
+        return json_encode($result);
     }
 }

@@ -48,7 +48,7 @@ class Database
         } catch (PDOException  $e) {
             throw new Exception("Se ha producido un error al intentar conectar al servidor MySQL: " . $e->getMessage(), true);
         }
-        echo "Connection successfully.";
+        # echo "Connection successfully.";
         return $this->conn;
     }
 

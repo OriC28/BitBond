@@ -11,11 +11,11 @@ class RedirectController extends Controller
     {
         if (isset($code) && !empty($code)) {
             $result = $this->urlModel->getUrlByShortCode($code);
-            if ($result) {
-                header('Location: ' . $result['long_url']);
+            if ($result['success']) {
+                header('Location: ' . $result['url']);
                 exit();
             }
         }
-        return false;
+        return json_encode($result);
     }
 }

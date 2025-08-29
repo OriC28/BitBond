@@ -6,6 +6,7 @@ use App\Controllers\UrlController;
 use App\Controllers\QrCodeController;
 use App\Controllers\RedirectController;
 
+
 $router = new Route();
 
 $router->addRoute('get', '/', function () {
@@ -27,5 +28,8 @@ $router->addRoute('get', '/BitBond/:code', function ($code) {
     $redirect = new RedirectController();
     return $redirect->handleRedirect($code);
 });
+
+require_once "../routes/api.php";
+
 
 $router->run();

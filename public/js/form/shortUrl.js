@@ -9,7 +9,7 @@ async function generateUrlShort(e) {
   const originalUrl = document.getElementById("original-url").value;
 
   if (!originalUrl) {
-    alert("Por favor ingresa una URL válida");
+    alert("Por favor ingresa una URL válida.");
     return;
   }
 
@@ -17,7 +17,7 @@ async function generateUrlShort(e) {
     const formData = new FormData();
     formData.append("url", originalUrl);
 
-    const response = await fetch("/api/links", {
+    const response = await fetch("http://localhost/api/links", {
       method: "POST",
       body: formData,
     });

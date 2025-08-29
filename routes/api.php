@@ -1,14 +1,13 @@
 <?php
 
 use App\Controllers\UrlController;
-use App\Core\Route;
 
-
-$router = new Route();
-
-$router->addRoute('post', '/api/links', function ($request) {
+$router->addRoute('post', '/api/links', function () {
     $links = new UrlController();
-    return $links->store($request);
+    return $links->store();
 });
 
-$router->run();
+$router->addRoute('get', '/api/links', function () {
+    $links = new UrlController();
+    return $links->select();
+});

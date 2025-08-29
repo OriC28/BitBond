@@ -17,7 +17,7 @@ class Creator
     public static function createShortCode(string $url)
     {
         $shortCode = substr(md5($url . time()), 0, 6);
-        while (!urlModel::getShortCode($shortCode)) {
+        while (urlModel::getShortCode($shortCode)) {
             $shortCode = substr(md5($url . time()), 0, 6);
         }
         return $shortCode;
