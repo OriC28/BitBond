@@ -15,7 +15,7 @@ async function generateQRCode(e) {
     const formData = new FormData();
     formData.append("content", qrContent);
 
-    const response = await fetch("", {
+    const response = await fetch("/api/qrcodes", {
       method: "POST",
       body: formData,
     });
@@ -40,7 +40,7 @@ async function generateQRCode(e) {
 function displayQrCode(data) {
   resultContent.innerHTML = `
         <div class="qr-preview">
-          <img src="/BitBond/${data.file_name}" width="180" height="180" alt="QR Code">
+          <img src="${data.file_name}" width="180" height="180" alt="QR Code">
         </div>
         <div class="action-buttons">
           <button class="btn btn-primary download-qr">
