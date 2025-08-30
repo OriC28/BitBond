@@ -26,7 +26,7 @@ class Creator
     public static function createImageQR(string $content)
     {
         if (Validator::validateContent($content)) {
-            $file_name = "qr/" . uniqid() . ".png";
+            $file_name = "./assets/qr/" . uniqid() . ".png";
             QRcode::png($content, $file_name, QR_ECLEVEL_L, 10);
             $binaryImage = file_get_contents($file_name);
             return [$content, $binaryImage, $file_name];
