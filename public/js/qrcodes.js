@@ -1,37 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
+import { getQrcodes } from "./api.js";
+
+document.addEventListener("DOMContentLoaded", async function () {
   const qrList = document.getElementById("qr-list");
 
   // Datos de ejemplo (simulando respuesta de la base de datos)
-  const qrCodes = [
-    {
-      id: 1,
-      content: "https://www.ejemplo.com/pagina-muy-larga",
-      color: "#000000",
-      date: "2023-05-15",
-      downloads: 5,
-    },
-    {
-      id: 2,
-      content: "https://www.otro-ejemplo.com/articulo",
-      color: "#324a5f",
-      date: "2023-05-10",
-      downloads: 3,
-    },
-    {
-      id: 3,
-      content: "https://sitio-web.com/producto/12345",
-      color: "#1b2a41",
-      date: "2023-05-01",
-      downloads: 8,
-    },
-    {
-      id: 4,
-      content: "Información de contacto: Juan Pérez - 555-1234",
-      color: "#000000",
-      date: "2023-04-28",
-      downloads: 2,
-    },
-  ];
+  const qrCodes = await getQrcodes();
 
   // Mostrar QR en la cuadrícula
   function renderQRCodes(qrsToRender) {
@@ -43,16 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       qrCard.innerHTML = `
         <div class="qr-image">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-            qr.content
-          )}&color=${qr.color.substring(1)}" alt="QR Code">
+          <img src="${qr.image}" alt="QR Code" width="200" height="200">
         </div>
         <div class="qr-content">${
-          qr.content.length > 30
-            ? qr.content.substring(0, 30) + "..."
-            : qr.content
+          qr.text.length > 30 ? qr.text.substring(0, 30) + "..." : qr.text
         }</div>
-        <div class="qr-date">${qr.date} • ${qr.downloads} descargas</div>
+        <div class="qr-date">${qr.created_at.slice(0, 10)} • ${
+        qr.downloads ?? 0
+      } descargas</div>
         <div class="qr-actions">
           <button class="btn btn-primary btn-sm download-btn" data-id="${
             qr.id

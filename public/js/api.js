@@ -64,3 +64,19 @@ export async function getUrls() {
     );
   }
 }
+
+export async function getQrcodes() {
+  try {
+    const response = await fetch("/api/qrcodes");
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al procesar la solicitud:", error);
+    alert(
+      "Ocurrió un error al obtener los códigos QR. Por favor, intenta nuevamente."
+    );
+  }
+}

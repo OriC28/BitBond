@@ -41,7 +41,7 @@
   </div>
 
   <script src="../js/main.js"></script>
-  <script src="../js/qrcodes.js"></script>
+  <script src="../js/qrcodes.js" type="module"></script>
 </body>
 
 </html>
