@@ -1,27 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
+import { getUrls } from "./api.js";
+import addCopyListeners from "./utils/copy.js";
+
+document.addEventListener("DOMContentLoaded", async function () {
   const linksList = document.getElementById("links-list");
 
-  // Datos de ejemplo (simulando respuesta de la base de datos)
-  const links = [
-    {
-      shortUrl: "https://short.ly/abc123",
-      originalUrl: "https://www.ejemplo.com/pagina-muy-larga/parametros",
-      date: "2023-05-15",
-      clicks: 42,
-    },
-    {
-      shortUrl: "https://short.ly/def456",
-      originalUrl: "https://www.otro-ejemplo.com/articulo/interesante",
-      date: "2023-05-10",
-      clicks: 18,
-    },
-    {
-      shortUrl: "https://short.ly/ghi789",
-      originalUrl: "https://sitio-web.com/producto/12345",
-      date: "2023-05-01",
-      clicks: 76,
-    },
-  ];
+  // Obtener urls de la base de datos
+  const links = await getUrls();
 
   // Mostrar links en la tabla
   function renderLinks(linksToRender) {
@@ -32,14 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
       row.innerHTML = `
         <td>
-          <a href="${link.shortUrl}" target="_blank">${link.shortUrl}</a>
-          <button class="btn btn-sm copy-btn" data-text="${link.shortUrl}" title="Copiar">
+          <a href="${link.short_url}" target="_blank">${link.short_url}</a>
+          <button class="btn btn-sm copy-btn" data-text="${
+            link.short_url
+          }" title="Copiar">
             <i class="fas fa-copy"></i>
           </button>
         </td>
-        <td class="original-url">${link.originalUrl}</td>
-        <td>${link.date}</td>
-        <td>${link.clicks}</td>
+        <td class="original-url">${link.long_url}</td>
+        <td>${link.created_at.slice(0, 10)}</td>
+        <td>${link.clicks ?? 0}</td>
         <td>
           <div class="action-buttons">
             <button class="btn btn-primary btn-sm stats-btn" title="Estadísticas">
@@ -64,17 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Agregar event listeners a los botones
   function addEventListeners() {
     // Botones de copiar
-    document.querySelectorAll(".copy-btn").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const text = this.getAttribute("data-text");
-        navigator.clipboard.writeText(text).then(() => {
-          this.innerHTML = '<i class="fas fa-check"></i>';
-          setTimeout(() => {
-            this.innerHTML = '<i class="fas fa-copy"></i>';
-          }, 2000);
-        });
-      });
-    });
+    addCopyListeners();
 
     // Botones de estadísticas
     document.querySelectorAll(".stats-btn").forEach((btn) => {

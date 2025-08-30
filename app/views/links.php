@@ -54,7 +54,7 @@
   </div>
 
   <script src="../js/main.js"></script>
-  <script src="../js/links.js"></script>
+  <script src="../js/links.js" type="module"></script>
 </body>
 
 </html>

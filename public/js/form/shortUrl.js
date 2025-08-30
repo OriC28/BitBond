@@ -1,4 +1,5 @@
 import addCopyListeners from "../utils/copy.js";
+import { saveUrlShort } from "../api.js";
 
 const resultContainer = document.getElementById("result-container");
 const resultContent = document.getElementById("result-content");
@@ -12,30 +13,8 @@ async function generateUrlShort(e) {
     alert("Por favor ingresa una URL válida.");
     return;
   }
-
-  try {
-    const formData = new FormData();
-    formData.append("url", originalUrl);
-
-    const response = await fetch("http://localhost/api/links", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("Datos recibidos:", data);
-
-    displayShortUrl(data.short_url);
-  } catch (error) {
-    console.error("Error al procesar la solicitud:", error);
-    alert(
-      "Ocurrió un error al procesar la URL. Por favor, intenta nuevamente."
-    );
-  }
+  const shortUrl = await saveUrlShort(originalUrl);
+  displayShortUrl(shortUrl);
 }
 
 function displayShortUrl(shortUrl) {
